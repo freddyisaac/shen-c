@@ -1,5 +1,7 @@
 #include "system.h"
 
+#include "defs.h"
+
 clock_t start_clock;
 
 extern void initialize_start_clock (void);

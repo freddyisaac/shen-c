@@ -1,5 +1,7 @@
 #include "overwrite.h"
 
+#include "defs.h"
+
 static inline KLObject* get_prolog_vector_object (void)
 {
   return get_kl_symbol_variable_value(get_shen_earmuff_prologvectors_symbol_object());

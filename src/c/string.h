@@ -1,6 +1,8 @@
 #ifndef SHEN_C_STRING_H
 #define SHEN_C_STRING_H
 
+#include "defs.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -39,37 +41,37 @@ char* long_to_string (long x);
 char* double_to_string (double x);
 char* kl_number_to_string (KLObject* number_object);
 
-inline KLObject* get_empty_string_object (void)
+INLINE KLObject* get_empty_string_object (void)
 {
   return empty_string_object;
 }
 
-inline KLObject* get_true_string_object (void)
+INLINE KLObject* get_true_string_object (void)
 {
   return true_string_object;
 }
 
-inline KLObject* get_false_string_object (void)
+INLINE KLObject* get_false_string_object (void)
 {
   return false_string_object;
 }
 
-inline KLObject* get_three_dots_string_object (void)
+INLINE KLObject* get_three_dots_string_object (void)
 {
   return three_dots_string_object;
 }
 
-inline char* get_string (KLObject* string_object)
+INLINE char* get_string (KLObject* string_object)
 {
   return string_object->value.string;
 }
 
-inline void set_string (KLObject* string_object, char* string)
+INLINE void set_string (KLObject* string_object, char* string)
 {
   string_object->value.string = string;
 }
 
-inline KLObject* create_kl_string (char *string)
+INLINE KLObject* create_kl_string (char *string)
 {
   KLObject* string_object = create_kl_object(KL_TYPE_STRING);
 
@@ -78,17 +80,17 @@ inline KLObject* create_kl_string (char *string)
   return string_object;
 }
 
-inline khash_t(StringTable)* get_string_table (void)
+INLINE khash_t(StringTable)* get_string_table (void)
 {
   return string_table;
 }
 
-inline void initialize_string_table (void)
+INLINE void initialize_string_table (void)
 {
   string_table = kh_init(StringTable);
 }
 
-inline KLObject* lookup_string_table (char* string)
+INLINE KLObject* lookup_string_table (char* string)
 {
   khash_t(StringTable)* table = get_string_table();
   khiter_t hash_iterator = kh_get(StringTable, table, string);
@@ -100,7 +102,7 @@ inline KLObject* lookup_string_table (char* string)
   return kh_value(table, hash_iterator);
 }
 
-inline void extend_string_table (char* string, KLObject* object)
+INLINE void extend_string_table (char* string, KLObject* object)
 {
   khash_t(StringTable)* table = get_string_table();
   int put_result;
@@ -112,7 +114,7 @@ inline void extend_string_table (char* string, KLObject* object)
   kh_value(table, hash_iterator) = object;
 }
 
-inline KLObject* create_kl_string_with_intern (char* string)
+INLINE KLObject* create_kl_string_with_intern (char* string)
 {
   KLObject* string_object = lookup_string_table(string);
 
@@ -124,17 +126,17 @@ inline KLObject* create_kl_string_with_intern (char* string)
   return string_object;
 }
 
-inline bool is_kl_string (KLObject* object)
+INLINE bool is_kl_string (KLObject* object)
 {
   return get_kl_object_type(object) == KL_TYPE_STRING;
 }
 
-inline bool is_kl_string_equal (KLObject* left_object, KLObject* right_object)
+INLINE bool is_kl_string_equal (KLObject* left_object, KLObject* right_object)
 {
   return left_object == right_object;
 }
 
-inline char* get_position_string (char* string, long index)
+INLINE char* get_position_string (char* string, long index)
 {
   if (index >= (long)strlen(string) || index < 0)
     throw_kl_exception("Invalid index");
@@ -147,7 +149,7 @@ inline char* get_position_string (char* string, long index)
   return position_string;
 }
 
-inline KLObject* get_position_kl_string (KLObject* string_object,
+INLINE KLObject* get_position_kl_string (KLObject* string_object,
                                   KLObject* number_object)
 {
   char* string = get_position_string(get_string(string_object),

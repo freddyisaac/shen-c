@@ -1,19 +1,21 @@
 #include "environment.h"
 
+#include "defs.h"
+
 Environment* global_function_environment = NULL;
 Environment* global_variable_environment = NULL;
 
-extern khash_t(ObjectTable)* get_environment_symbol_object_table
+EXTERN khash_t(ObjectTable)* get_environment_symbol_object_table
 (Environment* environment);
-extern void set_environment_symbol_object_table
+EXTERN void set_environment_symbol_object_table
 (Environment* environment, khash_t(ObjectTable)* symbol_object_table);
-extern Environment* get_parent_environment (Environment* environment);
-extern void set_parent_environment (Environment* environment,
+EXTERN Environment* get_parent_environment (Environment* environment);
+EXTERN void set_parent_environment (Environment* environment,
                                     Environment* parent_environment);
-extern Environment* create_environment (void);
-extern Environment* get_global_function_environment (void);
-extern Environment* get_global_variable_environment (void);
-extern void extend_environment (KLObject* symbol_object, KLObject* object,
+EXTERN Environment* create_environment (void);
+EXTERN Environment* get_global_function_environment (void);
+EXTERN Environment* get_global_variable_environment (void);
+EXTERN void extend_environment (KLObject* symbol_object, KLObject* object,
                                 Environment* environment);
 
 KLObject* lookup_environment (KLObject* symbol_object, Environment* environment)

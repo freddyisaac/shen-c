@@ -1,10 +1,12 @@
 #ifndef SHEN_C_STREAM_H
 #define SHEN_C_STREAM_H
 
+#include "defs.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <inttypes.h>
+//#include <inttypes.h>
 
 #include "exception.h"
 #include "kl.h"
@@ -22,39 +24,39 @@ extern size_t read_buffer_allocation_size;
 extern char* read_buffer;
 extern size_t read_buffer_position ;
 
-inline void initialize_shen_c_home_path (char* home_path)
+INLINE void initialize_shen_c_home_path (char* home_path)
 {
   shen_c_home_path = home_path;
 }
 
-inline char* get_shen_c_home_path (void)
+INLINE char* get_shen_c_home_path (void)
 {
   return shen_c_home_path;
 }
 
 char* kl_stream_to_string (KLObject* stream_object);
 
-inline FILE* get_stream_file (Stream* stream)
+INLINE FILE* get_stream_file (Stream* stream)
 {
   return stream->file;
 }
 
-inline void set_stream_file (Stream* stream, FILE* file)
+INLINE void set_stream_file (Stream* stream, FILE* file)
 {
   stream->file = file;
 }
 
-inline KLStreamType get_stream_stream_type (Stream* stream)
+INLINE KLStreamType get_stream_stream_type (Stream* stream)
 {
   return stream->stream_type;
 }
 
-inline void set_stream_stream_type (Stream* stream, KLStreamType stream_type)
+INLINE void set_stream_stream_type (Stream* stream, KLStreamType stream_type)
 {
   stream->stream_type = stream_type;
 }
 
-inline Stream* create_stream (FILE* file, KLStreamType stream_type)
+INLINE Stream* create_stream (FILE* file, KLStreamType stream_type)
 {
   Stream* stream = malloc(sizeof(Stream));
 
@@ -64,7 +66,7 @@ inline Stream* create_stream (FILE* file, KLStreamType stream_type)
   return stream;
 }
 
-inline char* stream_type_to_stream_type_string (KLStreamType stream_type)
+INLINE char* stream_type_to_stream_type_string (KLStreamType stream_type)
 {
   if (stream_type == KL_STREAM_TYPE_IN)
     return "in";
@@ -77,17 +79,17 @@ inline char* stream_type_to_stream_type_string (KLStreamType stream_type)
   return NULL;
 }
 
-inline Stream* get_stream (KLObject* stream_object)
+INLINE Stream* get_stream (KLObject* stream_object)
 {
   return stream_object->value.stream;
 }
 
-inline void set_stream (KLObject* stream_object, Stream* stream)
+INLINE void set_stream (KLObject* stream_object, Stream* stream)
 {
   stream_object->value.stream = stream;
 }
 
-inline KLObject* create_kl_stream (char* file_path,
+INLINE KLObject* create_kl_stream (char* file_path,
                                    KLObject* stream_type_symbol_object)
 {
   char* open_mode_string;
@@ -115,7 +117,7 @@ inline KLObject* create_kl_stream (char* file_path,
   return stream_object;
 }
 
-inline KLObject* create_kl_stream_from_home_path
+INLINE KLObject* create_kl_stream_from_home_path
 (char* file_path, KLObject* stream_type_symbol_object)
 {
   char* absolute_file_path = concatenate_string(get_shen_c_home_path(), file_path);
@@ -123,28 +125,28 @@ inline KLObject* create_kl_stream_from_home_path
   return create_kl_stream(absolute_file_path, stream_type_symbol_object);
 }
 
-inline FILE* get_kl_stream_file (KLObject* stream_object)
+INLINE FILE* get_kl_stream_file (KLObject* stream_object)
 {
   return get_stream_file(get_stream(stream_object));
 }
 
-inline void set_kl_stream_file (KLObject* stream_object, FILE* file)
+INLINE void set_kl_stream_file (KLObject* stream_object, FILE* file)
 {
   set_stream_file(get_stream(stream_object), file);
 }
 
-inline KLStreamType get_kl_stream_stream_type (KLObject* stream_object)
+INLINE KLStreamType get_kl_stream_stream_type (KLObject* stream_object)
 {
   return get_stream_stream_type(get_stream(stream_object));
 }
 
-inline void set_kl_stream_stream_type (KLObject* stream_object,
+INLINE void set_kl_stream_stream_type (KLObject* stream_object,
                                        KLStreamType stream_type)
 {
   set_stream_stream_type(get_stream(stream_object), stream_type);
 }
 
-inline KLObject* close_kl_stream (KLObject* stream_object)
+INLINE KLObject* close_kl_stream (KLObject* stream_object)
 {
   int stream_status = fclose(get_kl_stream_file(stream_object));
 
@@ -154,7 +156,7 @@ inline KLObject* close_kl_stream (KLObject* stream_object)
   return EL;
 }
 
-inline KLObject* create_std_kl_stream (FILE* file,
+INLINE KLObject* create_std_kl_stream (FILE* file,
                                        KLObject* stream_type_symbol_object)
 {
   KLStreamType stream_type;
@@ -174,59 +176,59 @@ inline KLObject* create_std_kl_stream (FILE* file,
   return stream_object;
 }
 
-inline void initialize_std_input_stream_object (void)
+INLINE void initialize_std_input_stream_object (void)
 {
   std_input_stream_object = create_std_kl_stream(stdin, get_in_symbol_object());
 }
 
-inline void initialize_std_output_stream_object (void)
+INLINE void initialize_std_output_stream_object (void)
 {
   std_output_stream_object = create_std_kl_stream(stdout, get_out_symbol_object());
 }
 
-inline void initialize_std_error_stream_object (void)
+INLINE void initialize_std_error_stream_object (void)
 {
   std_error_stream_object = create_std_kl_stream(stderr, get_out_symbol_object());
 }
 
-inline void initialize_std_stream_objects (void)
+INLINE void initialize_std_stream_objects (void)
 {
   initialize_std_input_stream_object();
   initialize_std_output_stream_object();
   initialize_std_error_stream_object();
 }
 
-inline KLObject* get_std_input_stream_object (void)
+INLINE KLObject* get_std_input_stream_object (void)
 {
   return std_input_stream_object;
 }
 
-inline KLObject* get_std_output_stream_object (void)
+INLINE KLObject* get_std_output_stream_object (void)
 {
   return std_output_stream_object;
 }
 
-inline KLObject* get_std_error_stream_object (void)
+INLINE KLObject* get_std_error_stream_object (void)
 {
   return std_error_stream_object;
 }
 
 
-inline bool is_kl_stream (KLObject* object)
+INLINE bool is_kl_stream (KLObject* object)
 {
   return get_kl_object_type(object) == KL_TYPE_STREAM;
 }
 
-inline bool is_kl_stream_equal (KLObject* left_object, KLObject* right_object)
+INLINE bool is_kl_stream_equal (KLObject* left_object, KLObject* right_object)
 {
   return left_object == right_object;
 }
 
-inline char read_byte (FILE* file)
+INLINE char read_byte (FILE* file)
 {
   char c = (char)getc(file);
 
-  if (c == EOF) {
+  if (c == (char) EOF) {
     if (ferror(file) != 0)
       throw_kl_exception("Failed to read a byte from stream");
 
@@ -236,7 +238,7 @@ inline char read_byte (FILE* file)
   return c;
 }
 
-inline KLObject* read_kl_stream_byte (KLObject* stream_object)
+INLINE KLObject* read_kl_stream_byte (KLObject* stream_object)
 {
   if (!is_kl_stream(stream_object))
     throw_kl_exception("Parameter should be a stream object");
@@ -244,39 +246,39 @@ inline KLObject* read_kl_stream_byte (KLObject* stream_object)
   return create_kl_number_l(read_byte(get_kl_stream_file(stream_object)));
 }
 
-inline char* get_read_buffer (void)
+INLINE char* get_read_buffer (void)
 {
   return read_buffer;
 }
 
-inline void set_read_buffer (char* buffer)
+INLINE void set_read_buffer (char* buffer)
 {
   read_buffer = buffer;
 }
 
-inline size_t get_read_buffer_allocation_size (void)
+INLINE size_t get_read_buffer_allocation_size (void)
 {
   return read_buffer_allocation_size;
 }
 
-inline void set_read_buffer_allocation_size (size_t size)
+INLINE void set_read_buffer_allocation_size (size_t size)
 {
   read_buffer_allocation_size = size;
 }
 
-inline void initialize_read_buffer (void)
+INLINE void initialize_read_buffer (void)
 {
   read_buffer = malloc(get_read_buffer_allocation_size());
   read_buffer[get_read_buffer_allocation_size() - 1] = '\0';
 }
 
-inline int read_byte_with_buffer (FILE* file)
+INLINE int read_byte_with_buffer (FILE* file)
 {
   return ((read_buffer_position > 0) ?
           read_buffer[--read_buffer_position] : getc(file));
 }
 
-inline void unread_byte_with_buffer (char c)
+INLINE void unread_byte_with_buffer (char c)
 {
   if (read_buffer_position >= get_read_buffer_allocation_size() - 1) {
     size_t new_read_buffer_allocation_size =
@@ -291,7 +293,7 @@ inline void unread_byte_with_buffer (char c)
   read_buffer[read_buffer_position++] = c;
 }
 
-inline void unread_bytes_with_buffer (char* lookahead_buffer)
+INLINE void unread_bytes_with_buffer (char* lookahead_buffer)
 {
   size_t lookahead_buffer_size = strlen(lookahead_buffer);
 
@@ -299,7 +301,7 @@ inline void unread_bytes_with_buffer (char* lookahead_buffer)
     unread_byte_with_buffer(lookahead_buffer[i]);
 }
 
-inline char write_byte (FILE* file, char c)
+INLINE char write_byte (FILE* file, char c)
 {
   if (putc(c, file) != c)
     throw_kl_exception("Failed to write a byte to stream");
@@ -307,7 +309,7 @@ inline char write_byte (FILE* file, char c)
   return c;
 }
 
-inline KLObject* write_kl_stream_byte (KLObject* stream_object,
+INLINE KLObject* write_kl_stream_byte (KLObject* stream_object,
                                        KLObject* number_object)
 {
   if (!is_kl_stream(stream_object))
@@ -321,7 +323,7 @@ inline KLObject* write_kl_stream_byte (KLObject* stream_object,
   return create_kl_number_l(write_byte(get_kl_stream_file(stream_object), c));
 }
 
-inline char* read_file (FILE* file)
+INLINE char* read_file (FILE* file)
 {
   if (fseek(file, 0, SEEK_END) != 0)
     throw_kl_exception("Failed to seek to the end position of the file");
@@ -342,7 +344,7 @@ inline char* read_file (FILE* file)
   return string;
 }
 
-inline char* read_file_by_file_path (char* file_path)
+INLINE char* read_file_by_file_path (char* file_path)
 {
   FILE* file = fopen(file_path, "r");
 
@@ -357,7 +359,7 @@ inline char* read_file_by_file_path (char* file_path)
   return string;
 }
 
-inline char* read_file_by_file_path_from_home_path (char* file_path)
+INLINE char* read_file_by_file_path_from_home_path (char* file_path)
 {
   char* absolute_file_path = concatenate_string(get_shen_c_home_path(),
                                                 file_path);

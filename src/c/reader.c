@@ -1,5 +1,7 @@
 #include "reader.h"
 
+#include "defs.h"
+
 static size_t reader_buffer_allocation_size = 4;
 
 static inline size_t get_reader_buffer_allocation_size ()
@@ -39,7 +41,7 @@ static KLObject* read_string_string (FILE* file)
   while (true) {
     c = (char)read_byte_with_buffer(file);
 
-    if (c == -1)
+    if (c == (char) -1)
       throw_kl_exception("String not closed");
     else if (is_double_quotation_character(c)) {
       if (is_string_opened) {
@@ -267,7 +269,7 @@ static KLObject* read_string_helper (FILE* file, int list_level)
   KLObject* head_list_object = NULL;
   KLObject* tail_list_object = NULL;
 
-  while ((c = (char)read_byte_with_buffer(file)) != -1) {
+  while ((c = (char)read_byte_with_buffer(file)) != (char) -1) {
     if (is_whitespace_character(c)) {
       // Do nothing
     } else if (is_left_parenthesis_character(c)) {

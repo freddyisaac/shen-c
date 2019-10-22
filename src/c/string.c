@@ -1,5 +1,7 @@
 #include "string.h"
 
+#include "defs.h"
+
 khash_t(StringTable)* string_table;
 
 KLObject* empty_string_object;
@@ -7,23 +9,23 @@ KLObject* true_string_object;
 KLObject* false_string_object;
 KLObject* three_dots_string_object;
 
-extern KLObject* get_empty_string_object (void);
-extern KLObject* get_true_string_object (void);
-extern KLObject* get_false_string_object (void);
-extern KLObject* get_three_dots_string_object (void);
+EXTERN KLObject* get_empty_string_object (void);
+EXTERN KLObject* get_true_string_object (void);
+EXTERN KLObject* get_false_string_object (void);
+EXTERN KLObject* get_three_dots_string_object (void);
 
-extern char* get_string (KLObject* string_object);
-extern void set_string (KLObject* string_object, char* string);
-extern KLObject* create_kl_string (char *string);
-extern khash_t(StringTable)* get_string_table (void);
-extern void initialize_string_table (void);
-extern KLObject* lookup_string_table (char* string);
-extern void extend_string_table (char* string, KLObject* object);
-extern KLObject* create_kl_string_with_intern (char* string);
-extern bool is_kl_string (KLObject* object);
-extern bool is_kl_string_equal (KLObject* left_object, KLObject* right_object);
-extern char* get_position_string (char* string, long index);
-extern KLObject* get_position_kl_string (KLObject* string_object,
+EXTERN char* get_string (KLObject* string_object);
+EXTERN void set_string (KLObject* string_object, char* string);
+EXTERN KLObject* create_kl_string (char *string);
+EXTERN khash_t(StringTable)* get_string_table (void);
+EXTERN void initialize_string_table (void);
+EXTERN KLObject* lookup_string_table (char* string);
+EXTERN void extend_string_table (char* string, KLObject* object);
+EXTERN KLObject* create_kl_string_with_intern (char* string);
+EXTERN bool is_kl_string (KLObject* object);
+EXTERN bool is_kl_string_equal (KLObject* left_object, KLObject* right_object);
+EXTERN char* get_position_string (char* string, long index);
+EXTERN KLObject* get_position_kl_string (KLObject* string_object,
                                          KLObject* number_object);
 
 static inline void register_empty_string_object (void)

@@ -1,26 +1,29 @@
 #include "exception.h"
 
+#include "defs.h"
+
+
 Stack* trapped_kl_exception_stack;
 
-extern char* get_exception_error_message (Exception* exception);
-extern void set_exception_error_message (Exception* exception,
+EXTERN char* get_exception_error_message (Exception* exception);
+EXTERN void set_exception_error_message (Exception* exception,
                                          char* error_message);
-extern jmp_buf* get_exception_jump_buffer (Exception* exception);
-extern void set_exception_jump_buffer (Exception* exception,
-                                       jmp_buf* jump_buffer);
-extern Exception* create_exception (void);
+EXTERN sigjmp_buf* get_exception_jump_buffer (Exception* exception);
+EXTERN void set_exception_jump_buffer (Exception* exception,
+                                       sigjmp_buf* jump_buffer);
+EXTERN Exception* create_exception (void);
 
-extern Exception* get_exception (KLObject* exception_object);
-extern void set_exception (KLObject* exception_object, Exception* exception);
-extern KLObject* create_kl_exception (void);
-extern jmp_buf* get_kl_exception_jump_buffer (KLObject* exception_object);
-extern void set_kl_exception_jump_buffer (KLObject* exception_object,
-                                          jmp_buf* jump_buffer);
-extern Stack* get_trapped_kl_exception_stack (void);
-extern void set_trapped_kl_exception_stack (Stack* stack);
-extern void initialize_trapped_kl_exception_stack (void);
-extern bool is_kl_exception (KLObject* object);
-extern bool is_kl_exception_equal (KLObject* left_object, KLObject* right_object);
+EXTERN Exception* get_exception (KLObject* exception_object);
+EXTERN void set_exception (KLObject* exception_object, Exception* exception);
+EXTERN KLObject* create_kl_exception (void);
+EXTERN sigjmp_buf* get_kl_exception_jump_buffer (KLObject* exception_object);
+EXTERN void set_kl_exception_jump_buffer (KLObject* exception_object,
+                                          sigjmp_buf* jump_buffer);
+EXTERN Stack* get_trapped_kl_exception_stack (void);
+EXTERN void set_trapped_kl_exception_stack (Stack* stack);
+EXTERN void initialize_trapped_kl_exception_stack (void);
+EXTERN bool is_kl_exception (KLObject* object);
+EXTERN bool is_kl_exception_equal (KLObject* left_object, KLObject* right_object);
 
 void throw_kl_exception (char* error_message)
 {
@@ -35,7 +38,7 @@ void throw_kl_exception (char* error_message)
 
   set_exception_error_message(exception, error_message);
 
-  jmp_buf* jump_buffer = get_exception_jump_buffer(exception);
+  sigjmp_buf* jump_buffer = get_exception_jump_buffer(exception);
 
   siglongjmp(*jump_buffer, 1);
 }
@@ -45,12 +48,12 @@ char* kl_exception_to_string (KLObject* exception_object)
   Exception* exception = get_exception(exception_object);
   char* error_message = get_exception_error_message(exception);
   int object_string_length = snprintf(NULL, 0,
-                                      "#<Exception {0x%016" PRIxPTR "} %s>",
+                                      "#<Exception {0x%016p\" PRIxPTR \"} %s>",
                                       (uintptr_t)exception_object,
                                       error_message);
   char* object_string = malloc((size_t)object_string_length + 1);
   
-  sprintf(object_string, "#<Exception {0x%016" PRIxPTR "} %s>",
+  sprintf(object_string, "#<Exception {0x%016p\" PRIxPTR \"} %s>",
           (uintptr_t)exception_object,
           error_message);
 

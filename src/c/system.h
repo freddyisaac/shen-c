@@ -1,6 +1,8 @@
 #ifndef SHEN_C_SYSTEM_H
 #define SHEN_C_SYSTEM_H
 
+#include "defs.h"
+
 #include <time.h>
 
 #include "exception.h"
@@ -12,7 +14,7 @@ extern clock_t start_clock;
 
 KLObject* get_kl_number_time (KLObject* symbol_object);
 
-inline void initialize_start_clock (void)
+INLINE void initialize_start_clock (void)
 {
   start_clock = clock();
 }

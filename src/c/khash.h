@@ -176,6 +176,7 @@ typedef khint_t khiter_t;
 #define kroundup32(x) (--(x), (x)|=(x)>>1, (x)|=(x)>>2, (x)|=(x)>>4, (x)|=(x)>>8, (x)|=(x)>>16, ++(x))
 #endif
 
+// FIX
 #ifndef kcalloc
 //#define kcalloc(N,Z) calloc(N,Z)
 #define kcalloc(N,Z) GC_malloc((N) * (Z))
@@ -192,8 +193,9 @@ typedef khint_t khiter_t;
 
 #endif
 #ifndef kfree
-//#define kfree(P) free(P)
-#define kfree(P) GC_free(P)
+// FIX THIS
+#define kfree(P) free(P)
+//#define kfree(P) GC_free(P)
 
 #endif
 

@@ -1,6 +1,8 @@
 #ifndef SHEN_C_PRIMITIVE_H
 #define SHEN_C_PRIMITIVE_H
 
+#include "defs.h"
+
 #include "boolean.h"
 #include "exception.h"
 #include "function.h"
@@ -17,7 +19,7 @@
 
 void register_primitive_kl_functions (void);
 
-inline KLObject** get_kl_function_arguments_with_count_check
+INLINE KLObject** get_kl_function_arguments_with_count_check
 (KLObject* function_object, Vector* arguments)
 {
   PrimitiveFunction* primitive_function =

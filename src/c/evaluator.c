@@ -767,11 +767,13 @@ static KLObject* eval_c_recur_expression (KLObject* list_object,
   if (argument_size != parameter_size)
     throw_kl_exception("Wrong number of arguments for c.recur");
   
-  jmp_buf* jump_buffer = get_loop_frame_jump_buffer(loop_frame); 
+  sigjmp_buf* jump_buffer = get_loop_frame_jump_buffer(loop_frame); 
 
   set_loop_frame_arguments(loop_frame, arguments);
 
   siglongjmp(*jump_buffer, 1);
+// FEI
+	return NULL;
 }
 
 static KLObject* eval_c_loop_expression (Vector* parameters,
@@ -779,7 +781,7 @@ static KLObject* eval_c_loop_expression (Vector* parameters,
                                          Environment* function_environment,
                                          Environment* variable_environment)
 {
-  jmp_buf exception_jump_buffer;
+  sigjmp_buf exception_jump_buffer;
   
   if (sigsetjmp(exception_jump_buffer, 0) == 0) {
     KLObject* exception_object = create_kl_exception();
@@ -794,7 +796,7 @@ static KLObject* eval_c_loop_expression (Vector* parameters,
     set_loop_frame_parameters(loop_frame, parameters);
 
     while (true) {
-      jmp_buf loop_jump_buffer;
+      sigjmp_buf loop_jump_buffer;
       
       if (sigsetjmp(loop_jump_buffer, 0) == 0) {
         set_loop_frame_jump_buffer(loop_frame, &loop_jump_buffer);
@@ -1441,7 +1443,7 @@ static KLObject* eval_trap_error_expression (KLObject* list_object,
     throw_kl_exception("Wrong number of arguments for trap-error");
   
   KLObject* cdr_object = CDR(list_object);
-  jmp_buf jump_buffer;
+  sigjmp_buf jump_buffer;
   
   if (sigsetjmp(jump_buffer, 0) == 0) {
     KLObject* body_object = CAR(cdr_object);

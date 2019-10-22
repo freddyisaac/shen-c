@@ -1,9 +1,11 @@
 #ifndef SHEN_C_OBJECT_H
 #define SHEN_C_OBJECT_H
 
+#include "defs.h"
+
 #include <stdbool.h>
 #include <stdio.h>
-#include <inttypes.h>
+//#include <inttypes.h>
 
 #include "khash.h"
 
@@ -31,7 +33,7 @@ bool is_kl_list_equal (KLObject* left_object, KLObject* right_object);
 bool is_kl_vector_equal (KLObject* left_object, KLObject* right_object);
 bool is_kl_object_equal (KLObject* left_object, KLObject* right_object);
 
-inline Vector* kl_list_to_vector (KLObject* list_object)
+INLINE Vector* kl_list_to_vector (KLObject* list_object)
 {
   long size = get_kl_list_size(list_object);
   Vector* vector = create_vector(size);
@@ -45,7 +47,7 @@ inline Vector* kl_list_to_vector (KLObject* list_object)
   return vector;
 }
 
-inline KLObject* get_dictionary_value (Dictionary* dictionary,
+INLINE KLObject* get_dictionary_value (Dictionary* dictionary,
                                        KLObject* key_object)
 {
   khash_t(StringPairTable)* table = get_dictionary_table(dictionary);
@@ -59,7 +61,7 @@ inline KLObject* get_dictionary_value (Dictionary* dictionary,
   return get_pair_cdr(kh_value(table, hash_iterator));
 }
 
-inline void set_dictionary_value (Dictionary* dictionary, KLObject* key_object,
+INLINE void set_dictionary_value (Dictionary* dictionary, KLObject* key_object,
                                   KLObject* value_object)
 {
   khash_t(StringPairTable)* table = get_dictionary_table(dictionary);
@@ -80,13 +82,13 @@ inline void set_dictionary_value (Dictionary* dictionary, KLObject* key_object,
   }
 }
 
-inline KLObject* get_kl_dictionary_value (KLObject* dictionary_object,
+INLINE KLObject* get_kl_dictionary_value (KLObject* dictionary_object,
                                           KLObject* key_object)
 {
   return get_dictionary_value(get_dictionary(dictionary_object), key_object);
 }
 
-inline KLObject* set_kl_dictionary_value (KLObject* dictionary_object,
+INLINE KLObject* set_kl_dictionary_value (KLObject* dictionary_object,
                                           KLObject* key_object,
                                           KLObject* value_object)
 {
@@ -96,7 +98,7 @@ inline KLObject* set_kl_dictionary_value (KLObject* dictionary_object,
   return value_object;
 }
 
-inline void delete_dictionary_key (Dictionary* dictionary, KLObject* key_object)
+INLINE void delete_dictionary_key (Dictionary* dictionary, KLObject* key_object)
 {
   khash_t(StringPairTable)* table = get_dictionary_table(dictionary);
   khiter_t hash_iterator = kh_get(StringPairTable, table,
@@ -105,7 +107,7 @@ inline void delete_dictionary_key (Dictionary* dictionary, KLObject* key_object)
   kh_del(StringPairTable, table, hash_iterator);
 }
 
-inline KLObject* delete_kl_dictionary_key (KLObject* dictionary_object,
+INLINE KLObject* delete_kl_dictionary_key (KLObject* dictionary_object,
                                            KLObject* key_object)
 {
   delete_dictionary_key(get_dictionary(dictionary_object), key_object);
@@ -113,12 +115,12 @@ inline KLObject* delete_kl_dictionary_key (KLObject* dictionary_object,
   return key_object;
 }
 
-inline char* kl_dictionary_to_string (KLObject* dictionary_object)
+INLINE char* kl_dictionary_to_string (KLObject* dictionary_object)
 {
   return "(dict ...)";
 }
 
-inline KLObject* kl_boolean_to_kl_string (KLObject* boolean_object)
+INLINE KLObject* kl_boolean_to_kl_string (KLObject* boolean_object)
 {
   return (get_boolean(boolean_object)) ?
     get_true_string_object() : get_false_string_object();

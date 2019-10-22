@@ -4,6 +4,7 @@
 
 int main (void)
 {
+// FIX
   GC_init();
 
   char* home_path = getenv("SHEN_C_HOME");

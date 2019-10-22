@@ -1,6 +1,8 @@
 #ifndef SHEN_C_DEVELOPMENT_H
 #define SHEN_C_DEVELOPMENT_H
 
+#include "defs.h"
+
 #include <stdio.h>
 
 #include "exception.h"

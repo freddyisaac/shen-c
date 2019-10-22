@@ -1,15 +1,17 @@
 #include "repl_socket.h"
 
+#include "defs.h"
+
 static int max_receive_data_size = 100;
 int repl_socket_file_descriptor;
 
-extern int get_repl_socket_file_descriptor (void);
-extern void set_repl_socket_file_descriptor (int socket_file_descriptor);
-extern void initialize_repl_socket_file_descriptor (int socket_file_descriptor);
-extern void initialize_repl_socket_std_input_stream_object (void);
-extern void initialize_repl_socket_std_output_stream_object (void);
-extern void initialize_repl_socket_std_error_stream_object (void);
-extern void initialize_repl_socket_std_stream_objects (void);
+EXTERN int get_repl_socket_file_descriptor (void);
+EXTERN void set_repl_socket_file_descriptor (int socket_file_descriptor);
+EXTERN void initialize_repl_socket_file_descriptor (int socket_file_descriptor);
+EXTERN void initialize_repl_socket_std_input_stream_object (void);
+EXTERN void initialize_repl_socket_std_output_stream_object (void);
+EXTERN void initialize_repl_socket_std_error_stream_object (void);
+EXTERN void initialize_repl_socket_std_stream_objects (void);
 
 static inline void sigchld_handler(int s)
 {

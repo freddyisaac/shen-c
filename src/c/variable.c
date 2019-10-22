@@ -1,5 +1,7 @@
 #include "variable.h"
 
+#include "defs.h"
+
 KLObject* earmuff_language_symbol_object;
 KLObject* earmuff_implementation_symbol_object;
 KLObject* earmuff_home_directory_symbol_object;
@@ -11,16 +13,16 @@ KLObject* earmuff_stoutput_symbol_object;
 KLObject* earmuff_sterror_symbol_object;
 KLObject* earmuff_argv_symbol_object;
 
-extern KLObject* get_earmuff_language_symbol_object (void);
-extern KLObject* get_earmuff_implementation_symbol_object (void);
-extern KLObject* get_earmuff_home_directory_symbol_object (void);
-extern KLObject* get_earmuff_release_symbol_object (void);
-extern KLObject* get_earmuff_port_symbol_object (void);
-extern KLObject* get_earmuff_porters_symbol_object (void);
-extern KLObject* get_earmuff_stinput_symbol_object (void);
-extern KLObject* get_earmuff_stoutput_symbol_object (void);
-extern KLObject* get_earmuff_sterror_symbol_object (void);
-extern KLObject* get_earmuff_argv_symbol_object (void);
+EXTERN KLObject* get_earmuff_language_symbol_object (void);
+EXTERN KLObject* get_earmuff_implementation_symbol_object (void);
+EXTERN KLObject* get_earmuff_home_directory_symbol_object (void);
+EXTERN KLObject* get_earmuff_release_symbol_object (void);
+EXTERN KLObject* get_earmuff_port_symbol_object (void);
+EXTERN KLObject* get_earmuff_porters_symbol_object (void);
+EXTERN KLObject* get_earmuff_stinput_symbol_object (void);
+EXTERN KLObject* get_earmuff_stoutput_symbol_object (void);
+EXTERN KLObject* get_earmuff_sterror_symbol_object (void);
+EXTERN KLObject* get_earmuff_argv_symbol_object (void);
 
 KLObject* get_variable_value (KLObject* symbol_object,
                               Environment* variable_environment)

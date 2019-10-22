@@ -1,6 +1,8 @@
 #include "primitive.h"
 
-extern KLObject** get_kl_function_arguments_with_count_check
+#include "defs.h"
+
+EXTERN KLObject** get_kl_function_arguments_with_count_check
 (KLObject* function_object, Vector* arguments);
 
 static inline KLObject* primitive_function_intern

@@ -1,37 +1,39 @@
 #include "number.h"
 
-extern KLNumberType get_number_number_type (Number* number);
-extern void set_number_number_type (Number* number, KLNumberType number_type);
-extern long get_number_number_l (Number* number);
-extern void set_number_number_l (Number* number, long x);
-extern double get_number_number_d (Number* number);
-extern void set_number_number_d (Number* number, double x);
-extern Number* create_number_l (long x);
-extern Number* create_number_d (double x);
+#include "defs.h"
 
-extern Number* get_number (KLObject* number_object);
-extern void set_number (KLObject* number_object, Number* number);
-extern KLObject* create_kl_number_l (long x);
-extern KLObject* create_kl_number_d (double x);
-extern long get_kl_number_number_l (KLObject* number_object);
-extern double get_kl_number_number_d (KLObject* number_object);
-extern KLNumberType get_kl_number_number_type (KLObject* number_object);
+EXTERN KLNumberType get_number_number_type (Number* number);
+EXTERN void set_number_number_type (Number* number, KLNumberType number_type);
+EXTERN long get_number_number_l (Number* number);
+EXTERN void set_number_number_l (Number* number, long x);
+EXTERN double get_number_number_d (Number* number);
+EXTERN void set_number_number_d (Number* number, double x);
+EXTERN Number* create_number_l (long x);
+EXTERN Number* create_number_d (double x);
 
-extern bool is_kl_number (KLObject* object);
-extern bool is_kl_number_l (KLObject* object);
-extern bool is_kl_number_d (KLObject* object);
-extern KLObject* kl_number_l_to_kl_number_d (KLObject* number_object);
-extern KLObject* kl_number_d_to_kl_number_l (KLObject* number_object);
+EXTERN Number* get_number (KLObject* number_object);
+EXTERN void set_number (KLObject* number_object, Number* number);
+EXTERN KLObject* create_kl_number_l (long x);
+EXTERN KLObject* create_kl_number_d (double x);
+EXTERN long get_kl_number_number_l (KLObject* number_object);
+EXTERN double get_kl_number_number_d (KLObject* number_object);
+EXTERN KLNumberType get_kl_number_number_type (KLObject* number_object);
 
-extern long add_number_l_l (long x, long y);
-extern double add_number_l_d (long x, double y);
-extern double add_number_d_l (double x, long y);
-extern double add_number_d_d (double x, double y);
-extern KLObject* add_kl_number_l_l (KLObject* k, KLObject* l);
-extern KLObject* add_kl_number_l_d (KLObject* k, KLObject* l);
-extern KLObject* add_kl_number_d_l (KLObject* k, KLObject* l);
-extern KLObject* add_kl_number_d_d (KLObject* k, KLObject* l);
-extern KLObject* add_kl_number (KLObject* k, KLObject* l);
+EXTERN bool is_kl_number (KLObject* object);
+EXTERN bool is_kl_number_l (KLObject* object);
+EXTERN bool is_kl_number_d (KLObject* object);
+EXTERN KLObject* kl_number_l_to_kl_number_d (KLObject* number_object);
+EXTERN KLObject* kl_number_d_to_kl_number_l (KLObject* number_object);
+
+EXTERN long add_number_l_l (long x, long y);
+EXTERN double add_number_l_d (long x, double y);
+EXTERN double add_number_d_l (double x, long y);
+EXTERN double add_number_d_d (double x, double y);
+EXTERN KLObject* add_kl_number_l_l (KLObject* k, KLObject* l);
+EXTERN KLObject* add_kl_number_l_d (KLObject* k, KLObject* l);
+EXTERN KLObject* add_kl_number_d_l (KLObject* k, KLObject* l);
+EXTERN KLObject* add_kl_number_d_d (KLObject* k, KLObject* l);
+EXTERN KLObject* add_kl_number (KLObject* k, KLObject* l);
 
 static inline long subtract_number_l_l (long x, long y) { return x - y; }
 

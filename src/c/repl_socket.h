@@ -1,6 +1,8 @@
 #ifndef SHEN_C_REPL_SOCKET_H
 #define SHEN_C_REPL_SOCKET_H
 
+#include "defs.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,22 +31,22 @@ typedef struct sigaction SIGNAL_ACTION;
 
 void start_repl_server (char* host_name, char* port, int max_connection_queue_number);
 
-inline int get_repl_socket_file_descriptor (void)
+INLINE int get_repl_socket_file_descriptor (void)
 {
   return repl_socket_file_descriptor;
 }
 
-inline void set_repl_socket_file_descriptor (int socket_file_descriptor)
+INLINE void set_repl_socket_file_descriptor (int socket_file_descriptor)
 {
   repl_socket_file_descriptor = socket_file_descriptor;
 }
 
-inline void initialize_repl_socket_file_descriptor (int socket_file_descriptor)
+INLINE void initialize_repl_socket_file_descriptor (int socket_file_descriptor)
 {
   set_repl_socket_file_descriptor(socket_file_descriptor);
 }
 
-inline void initialize_repl_socket_std_input_stream_object (void)
+INLINE void initialize_repl_socket_std_input_stream_object (void)
 {
   FILE* file = fdopen(get_repl_socket_file_descriptor(), "r");
 
@@ -54,7 +56,7 @@ inline void initialize_repl_socket_std_input_stream_object (void)
   std_input_stream_object = create_std_kl_stream(file, get_in_symbol_object());
 }
 
-inline void initialize_repl_socket_std_output_stream_object (void)
+INLINE void initialize_repl_socket_std_output_stream_object (void)
 {
   FILE* file = fdopen(get_repl_socket_file_descriptor(), "w");
 
@@ -64,7 +66,7 @@ inline void initialize_repl_socket_std_output_stream_object (void)
   std_output_stream_object = create_std_kl_stream(file, get_out_symbol_object());
 }
 
-inline void initialize_repl_socket_std_error_stream_object (void)
+INLINE void initialize_repl_socket_std_error_stream_object (void)
 {
   FILE* file = fdopen(get_repl_socket_file_descriptor(), "w");
 
@@ -74,7 +76,7 @@ inline void initialize_repl_socket_std_error_stream_object (void)
   std_error_stream_object = create_std_kl_stream(file, get_out_symbol_object());
 }
 
-inline void initialize_repl_socket_std_stream_objects (void)
+INLINE void initialize_repl_socket_std_stream_objects (void)
 {
   initialize_repl_socket_std_input_stream_object();
   initialize_repl_socket_std_output_stream_object();

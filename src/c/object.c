@@ -1,23 +1,25 @@
 #include "object.h"
 
+#include "defs.h"
+
 static size_t kl_list_to_string_allocation_size = 10;
 static size_t vector_to_string_allocation_size = 10;
 
-extern Vector* kl_list_to_vector (KLObject* list_object);
-extern KLObject* get_dictionary_value (Dictionary* dictionary,
+EXTERN Vector* kl_list_to_vector (KLObject* list_object);
+EXTERN KLObject* get_dictionary_value (Dictionary* dictionary,
                                        KLObject* key_object);
-extern void set_dictionary_value (Dictionary* dictionary, KLObject* key_object,
+EXTERN void set_dictionary_value (Dictionary* dictionary, KLObject* key_object,
                                   KLObject* value_object);
-extern KLObject* get_kl_dictionary_value (KLObject* dictionary_object,
+EXTERN KLObject* get_kl_dictionary_value (KLObject* dictionary_object,
                                           KLObject* key_object);
-extern KLObject* set_kl_dictionary_value (KLObject* dictionary_object,
+EXTERN KLObject* set_kl_dictionary_value (KLObject* dictionary_object,
                                           KLObject* key_object,
                                           KLObject* value_object);
-extern void delete_dictionary_key (Dictionary* dictionary, KLObject* key_object);
-extern KLObject* delete_kl_dictionary_key (KLObject* dictionary_object,
+EXTERN void delete_dictionary_key (Dictionary* dictionary, KLObject* key_object);
+EXTERN KLObject* delete_kl_dictionary_key (KLObject* dictionary_object,
                                            KLObject* key_object);
-extern char* kl_dictionary_to_string (KLObject* dictionary_object);
-extern KLObject* kl_boolean_to_kl_string (KLObject* boolean_object);
+EXTERN char* kl_dictionary_to_string (KLObject* dictionary_object);
+EXTERN KLObject* kl_boolean_to_kl_string (KLObject* boolean_object);
 
 static inline size_t get_kl_list_to_string_allocation_size ()
 {
@@ -142,34 +144,34 @@ char* kl_function_to_string (KLObject* function_object)
     if (is_null(parameter_object_string)) {
       function_object_string_length =
         snprintf(NULL, 0,
-                 "#<Closure {0x%016" PRIxPTR "} [lambda %s]>",
+                 "#<Closure {0x%016p\" PRIxPTR \"} [lambda %s]>",
                  (uintptr_t)function_object,
                  body_object_string);
       function_object_string = malloc((size_t)function_object_string_length + 1);
       sprintf(function_object_string,
-              "#<Closure {0x%016" PRIxPTR "} [lambda %s]>",
+              "#<Closure {0x%016p\" PRIxPTR \"} [lambda %s]>",
               (uintptr_t)function_object,
               body_object_string);
     } else {
       function_object_string_length =
         snprintf(NULL, 0,
-                 "#<Closure {0x%016" PRIxPTR "} [lambda %s %s]>",
+                 "#<Closure {0x%016p\" PRIxPTR \"} [lambda %s %s]>",
                  (uintptr_t)function_object,
                  parameter_object_string,
                  body_object_string);
       function_object_string = malloc((size_t)function_object_string_length + 1);
       sprintf(function_object_string,
-              "#<Closure {0x%016" PRIxPTR "} [lambda %s %s]>",
+              "#<Closure {0x%016p\" PRIxPTR \"} [lambda %s %s]>",
               (uintptr_t)function_object,
               parameter_object_string,
               body_object_string);
     }
   } else if (is_primitive_kl_function(function_object)) {
     function_object_string_length =
-      snprintf(NULL, 0, "#<PrimitiveFunction {0x%016" PRIxPTR "}>",
+      snprintf(NULL, 0, "#<PrimitiveFunction {0x%016p\" PRIxPTR \"}>",
                (uintptr_t)function_object);
     function_object_string = malloc((size_t)function_object_string_length + 1);
-    sprintf(function_object_string, "#<PrimitiveFunction {0x%016" PRIxPTR "}>",
+    sprintf(function_object_string, "#<PrimitiveFunction {0x%016p\" PRIxPTR \"}>",
             (uintptr_t)function_object);
   } else if (is_user_kl_function(function_object)) {
     UserFunction* user_function = get_kl_function_user_function(function_object);
@@ -195,13 +197,13 @@ char* kl_function_to_string (KLObject* function_object)
 
     function_object_string_length =
       snprintf(NULL, 0,
-               "#<Function {0x%016" PRIxPTR "} [function [%s] %s]>",
+               "#<Function {0x%016p\" PRIxPTR \"} [function [%s] %s]>",
                (uintptr_t)function_object,
                parameter_object_string,
                body_object_string);
     function_object_string = malloc((size_t)function_object_string_length + 1); 
     sprintf(function_object_string,
-            "#<Function {0x%016" PRIxPTR "} [function [%s] %s]>",
+            "#<Function {0x%016p\" PRIxPTR \"} [function [%s] %s]>",
             (uintptr_t)function_object,
             parameter_object_string,
             body_object_string);

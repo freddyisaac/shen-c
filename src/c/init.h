@@ -17,7 +17,7 @@
 #include "variable.h"
 #include "vector.h"
 
-inline void initialize (void)
+INLINE void initialize (void)
 {
   initialize_boolean_objects();
   initialize_empty_kl_list();
@@ -43,9 +43,10 @@ inline void initialize (void)
   register_global_variables();
 }
 
-inline void initialize_and_run_shen_repl (const char* home_path)
+INLINE void initialize_and_run_shen_repl (const char* home_path)
 {
-  GC_init();
+// FEI
+//  GC_init();
 
   char* slashed_home_path = concatenate_string((char*)home_path, "/");
 

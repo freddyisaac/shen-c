@@ -1,6 +1,8 @@
 #ifndef SHEN_C_KL_H
 #define SHEN_C_KL_H
 
+#include "defs.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -138,7 +140,7 @@ struct Stream {
 
 struct Exception {
   char* error_message;
-  jmp_buf* jump_buffer;
+  sigjmp_buf* jump_buffer;
 };
 
 struct Pair {
@@ -168,7 +170,7 @@ typedef struct Stack {
 typedef struct LoopFrame {
   Vector* arguments;
   Vector* parameters;
-  jmp_buf* jump_buffer;
+  sigjmp_buf* jump_buffer;
 } LoopFrame;
 
 struct LoopFramePair {
@@ -183,17 +185,17 @@ typedef struct LoopFrameStack {
 
 extern KLObject* empty_list_object;
 
-inline KLType get_kl_object_type (KLObject* object)
+INLINE KLType get_kl_object_type (KLObject* object)
 {
   return object->type;
 }
 
-inline void set_kl_object_type (KLObject* object, KLType type)
+INLINE void set_kl_object_type (KLObject* object, KLType type)
 {
   object->type = type;
 }
 
-inline KLObject* create_kl_object (KLType type)
+INLINE KLObject* create_kl_object (KLType type)
 {
   KLObject* object = malloc(sizeof(KLObject));
 
@@ -202,37 +204,37 @@ inline KLObject* create_kl_object (KLType type)
   return object;
 }
 
-inline bool is_null (void* object)
+INLINE bool is_null (void* object)
 {
   return object == NULL;
 }
 
-inline bool is_not_null (void* object)
+INLINE bool is_not_null (void* object)
 {
   return object != NULL;
 }
 
-inline KLObject* get_pair_car (Pair* pair)
+INLINE KLObject* get_pair_car (Pair* pair)
 {
   return pair->car;
 }
 
-inline void set_pair_car (Pair* pair, KLObject* object)
+INLINE void set_pair_car (Pair* pair, KLObject* object)
 {
   pair->car = object;
 }
 
-inline KLObject* get_pair_cdr (Pair* pair)
+INLINE KLObject* get_pair_cdr (Pair* pair)
 {
   return pair->cdr;
 }
 
-inline void set_pair_cdr (Pair* pair, KLObject* object)
+INLINE void set_pair_cdr (Pair* pair, KLObject* object)
 {
   pair->cdr = object;
 }
 
-inline Pair* create_pair (KLObject* car_object, KLObject* cdr_object)
+INLINE Pair* create_pair (KLObject* car_object, KLObject* cdr_object)
 {
   Pair* pair = malloc(sizeof(Pair));
 
@@ -242,7 +244,7 @@ inline Pair* create_pair (KLObject* car_object, KLObject* cdr_object)
   return pair;
 }
 
-inline void initialize_empty_kl_list (void)
+INLINE void initialize_empty_kl_list (void)
 {
   KLObject* list_object = create_kl_object(KL_TYPE_LIST);
 
@@ -250,12 +252,12 @@ inline void initialize_empty_kl_list (void)
   empty_list_object = list_object;
 }
 
-inline KLObject* get_empty_kl_list (void)
+INLINE KLObject* get_empty_kl_list (void)
 {
   return empty_list_object;
 }
 
-inline bool is_empty_kl_list (KLObject* object)
+INLINE bool is_empty_kl_list (KLObject* object)
 {
   return object == get_empty_kl_list();
 }

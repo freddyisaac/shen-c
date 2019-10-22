@@ -1,10 +1,12 @@
 #include "stack.h"
 
-extern KLObject* get_stack_top (Stack* stack);
-extern void set_stack_top (Stack* stack, KLObject* top_object);
-extern long get_stack_size (Stack* stack);
-extern void set_stack_size (Stack* stack, long size);
-extern Stack* create_stack (void);
+#include "defs.h"
+
+EXTERN KLObject* get_stack_top (Stack* stack);
+EXTERN void set_stack_top (Stack* stack, KLObject* top_object);
+EXTERN long get_stack_size (Stack* stack);
+EXTERN void set_stack_size (Stack* stack, long size);
+EXTERN Stack* create_stack (void);
 
 void push_stack (Stack* stack, KLObject* object)
 {

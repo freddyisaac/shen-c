@@ -1,5 +1,7 @@
 #include "repl.h"
 
+#include "defs.h"
+
 void load_kl_file (char* file_path)
 {
   KLObject* stream = create_kl_stream_from_home_path(file_path,
@@ -65,7 +67,7 @@ void run_kl_repl (void)
   KLObject* std_input_stream_object = get_std_input_stream_object();
 
   while (true) {
-    jmp_buf jump_buffer;
+    sigjmp_buf jump_buffer;
 
     if (sigsetjmp(jump_buffer, 0) == 0) {
       KLObject* exception_object = create_kl_exception();
